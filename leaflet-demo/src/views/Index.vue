@@ -8,12 +8,22 @@ export default {
   setup(props) {
     const { proxy } = getCurrentInstance()
     const { leaflet } = proxy
-
+    const layers = [
+      leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+    ]
 
     const initMap = () => {
-      const map = leaflet.map('map').setView([51.505, -0.09], 13);
-
-      leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+      const map = leaflet.map('map', {
+        center: [40, 115],
+        zoom: 8,
+        crs: leaflet.CRS.EPSG3857,
+        layers: layers,
+        maxZoom: 18,
+        minZoom: 1,
+        attributionControl:false,
+        zoomControl:false
+      });
+      //   leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
     }
     onMounted(() => {
       initMap()
@@ -24,7 +34,7 @@ export default {
 </script>
 <style lang="postcss" scoped>
 #map {
-  width: 400px;
-  height: 400px;
+  width: 1000px;
+  height: 800px;
 }
 </style>
