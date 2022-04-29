@@ -7,6 +7,8 @@
       <el-input style="width:300px" placeholder="请输入层级" v-model="zoom" @keyup.enter="setZoom(zoom)"></el-input>
       <br>
       <el-input style="width:150px" placeholder="请输经纬度" v-model="lnglat" @keyup.enter="setView(lnglat)"></el-input>
+      <br>
+      <el-button @click="addGeoJsonFeatures">geojson</el-button>
     </el-col>
   </el-row>
 </template>
@@ -109,7 +111,27 @@ export default {
       })
       circler.addTo(map)
     }
-
+    /**使用geojson添加要素 */
+    const addGeoJsonFeatures = () => {
+      let geojson = {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                115,
+                42
+              ]
+            }
+          }
+        ]
+      }
+      let geojsonLayer = leaflet.geoJSON(geojson)
+      geojsonLayer.addTo(map)
+    }
     /**地图初始化 */
     onMounted(() => {
       initMap()
@@ -122,7 +144,8 @@ export default {
       setZoom,
       setView,
       lnglat,
-      zoom
+      zoom,
+      addGeoJsonFeatures
     }
   }
 }

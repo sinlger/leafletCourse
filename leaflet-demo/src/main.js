@@ -7,7 +7,7 @@ import router from '@/route/index.js'
 import App from './App.vue'
 import * as leaflet from "leaflet"
 import 'leaflet/dist/leaflet.css'
-
+import "leaflet.markercluster"
 const app = createApp(App)
 
 //挂在全局属性
